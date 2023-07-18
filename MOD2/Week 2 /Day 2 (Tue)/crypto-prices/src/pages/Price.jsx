@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function Price() {
 
     const [coin, setCoin] = useState({})
 
-    const params = useParams() // { symbol: 'BTC' }
+    const navigate = useNavigate()
+
+    const params = useParams()
 
     async function getCoin() {
 
@@ -15,11 +17,16 @@ export default function Price() {
         const response = await fetch(api)
         const data = await response.json()
         console.log(data)
+
+        console.log('getCoinnn')
         setCoin(data)
     }
 
     useEffect(() => {
-        getCoin()
+        console.log('useEffect')
+        if (!coin.rate) {
+            getCoin()
+        }
     }, [])
 
     function loaded() {
@@ -27,6 +34,7 @@ export default function Price() {
             <div>
                 <h1>{coin.asset_id_base}/{coin.asset_id_quote}</h1>
                 <h2>{coin.rate}</h2>
+                <button onClick={() => navigate('/currencies')}>Back</button>
             </div>
         )
     }
