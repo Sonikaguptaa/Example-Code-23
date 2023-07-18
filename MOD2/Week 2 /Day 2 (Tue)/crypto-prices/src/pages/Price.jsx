@@ -9,7 +9,7 @@ export default function Price() {
 
     async function getCoin() {
 
-        let key = '5DD2A18F-D9A7-4165-BDC9-BD6717D3C4AF'
+        let key = import.meta.env.VITE_API_KEY
         let api = `http://rest.coinapi.io/v1/exchangerate/${params.symbol}/USD?apikey=${key}`
 
         const response = await fetch(api)
