@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { FamilyContext } from "../familyContext";
+import { useFamilyContext } from "../familyContext";
 
 function GreatGrandChild() {
 
-    const { traits } = useContext(FamilyContext)
+    const { traits } = useFamilyContext()
 
     return ( 
         <div>

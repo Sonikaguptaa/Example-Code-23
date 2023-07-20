@@ -1,12 +1,11 @@
-import { useContext } from 'react'
-import { FamilyContext } from './familyContext'
-
 import './App.css'
 import Parent from './components/Parent'
 
+import { useFamilyContext } from './familyContext'
+
 function App() {
 
-  const { traits, changeTraits } = useContext(FamilyContext)
+  const { traits, changeTraits } = useFamilyContext()
 
   return (
     <div>
