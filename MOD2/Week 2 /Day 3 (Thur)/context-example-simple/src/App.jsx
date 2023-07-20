@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, createContext } from 'react'
 import './App.css'
 import Parent from './components/Parent'
+
+export const FamilyContext = createContext()
 
 function App() {
 
@@ -21,7 +23,9 @@ function App() {
     <div>
       <button onClick={changeTraits}>Change</button><br/><br/>
      <span style={traits}>App</span><br />|
-        <Parent />
+      <FamilyContext.Provider value={traits}>
+        <Parent traits={traits} />
+      </FamilyContext.Provider>
     </div>
   )
 }
