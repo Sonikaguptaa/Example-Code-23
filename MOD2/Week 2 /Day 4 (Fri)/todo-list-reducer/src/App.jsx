@@ -1,24 +1,27 @@
 import "./App.css";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import TodoList from "./components/TodoList";
 
+function reducer(state, action) {
+  // action ->  { type: 'ADD', payload: input }
+  switch(action.type) {
+    case 'ADD': 
+      let item = {
+        text: action.payload,
+        completed: false,
+        id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
+      };
+      return [...state, item];
+  }
+
+  return state 
+}
+
 export default function App() {
-  let [todos, setTodos] = useState([]);
+
+  let [todos, dispatch] = useReducer(reducer, [])
   let [input, setInput] = useState("");
   let [listType, setListType] = useState("all");
-
-  function addToList() {
-    let item = {
-      text: input,
-      completed: false,
-      id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
-    };
-
-    let newTodos = [...todos, item];
-
-    setTodos(newTodos);
-    setInput("");
-  }
 
   function handleChange(event) {
     setInput(event.target.value);
@@ -51,7 +54,7 @@ export default function App() {
       />
 
       <input value={input} onChange={handleChange} />
-      <button onClick={addToList}>Submit</button>
+      <button onClick={() => dispatch({ type: 'ADD', payload: input })}>Submit</button>
 
       <br />
       <br />
