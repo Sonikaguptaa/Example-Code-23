@@ -1,4 +1,4 @@
-function Todo({ item, completeTodo, deleteTodo }) {
+function Todo({ item, dispatch }) {
     return (
       <li style={{ listStyle: "none" }}>
         <input
@@ -7,7 +7,7 @@ function Todo({ item, completeTodo, deleteTodo }) {
           onChange={() => completeTodo(item.id)}
         />
         {item.text}
-        <button onClick={() => deleteTodo(item.id)}>x</button>
+        <button onClick={() => dispatch({ type: 'DELETE', payload: item.id })}>x</button>
       </li>
     );
   }

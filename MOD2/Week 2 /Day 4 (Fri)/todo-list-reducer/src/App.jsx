@@ -9,12 +9,16 @@ function reducer(state, action) {
       let item = {
         text: action.payload,
         completed: false,
-        id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
+        id: crypto.randomUUID() 
       };
       return [...state, item];
+    case 'DELETE':
+      return state.filter((item) => item.id !== action.payload);
+    case 'COMPLETE':
+      return state
+    default:
+      return state
   }
-
-  return state 
 }
 
 export default function App() {
@@ -27,18 +31,10 @@ export default function App() {
     setInput(event.target.value);
   }
 
-  function deleteTodo(id) {
-    let newTodos = todos.filter((item) => item.id !== id);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-    setTodos(newTodos);
-  }
-
   function completeTodo(id) {
     let newTodos = todos.map((item) =>
       item.id === id ? { ...item, completed: !item.completed } : item
     );
-
-    localStorage.setItem("todos", JSON.stringify(newTodos));
     setTodos(newTodos);
   }
 
@@ -49,12 +45,14 @@ export default function App() {
       <TodoList
         todos={todos}
         listType={listType}
-        completeTodo={completeTodo}
-        deleteTodo={deleteTodo}
+        dispatch={dispatch}
       />
 
       <input value={input} onChange={handleChange} />
-      <button onClick={() => dispatch({ type: 'ADD', payload: input })}>Submit</button>
+      <button onClick={() => {
+        dispatch({ type: 'ADD', payload: input })
+        setInput('')
+      }}>Submit</button>
 
       <br />
       <br />

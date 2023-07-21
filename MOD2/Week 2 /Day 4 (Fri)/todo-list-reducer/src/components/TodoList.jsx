@@ -1,6 +1,6 @@
 import Todo from "./Todo";
 
-function TodoList({ todos, listType, completeTodo, deleteTodo }) {
+function TodoList({ todos, listType, dispatch }) {
   let filteredTodos = todos.filter((item) => {
     if (listType === "all") {
       return true;
@@ -22,8 +22,7 @@ function TodoList({ todos, listType, completeTodo, deleteTodo }) {
         <Todo
           key={item.id}
           item={item}
-          completeTodo={completeTodo}
-          deleteTodo={deleteTodo}
+          dispatch={dispatch}
         />
       ))}
     </ul>
