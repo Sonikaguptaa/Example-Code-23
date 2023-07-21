@@ -1,7 +1,7 @@
 import { useContext, createContext, useState } from "react"
 
 // creating our context here
-export const FamilyContext = createContext()
+const FamilyContext = createContext()
 
 // custom hook
 export function useFamilyContext() {
@@ -10,7 +10,7 @@ export function useFamilyContext() {
 
 // custom Provider component
 export function FamilyProvider(props) {
-
+ 
     const [traits, setTraits] = useState({
         color: 'white',
         backgroundColor: 'blue'
