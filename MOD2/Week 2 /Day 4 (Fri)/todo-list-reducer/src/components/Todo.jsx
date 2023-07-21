@@ -4,7 +4,7 @@ function Todo({ item, dispatch }) {
         <input
           type="checkbox"
           checked={item.completed}
-          onChange={() => completeTodo(item.id)}
+          onChange={() => dispatch({ type: 'COMPLETE', payload: item.id })}
         />
         {item.text}
         <button onClick={() => dispatch({ type: 'DELETE', payload: item.id })}>x</button>

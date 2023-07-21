@@ -15,7 +15,9 @@ function reducer(state, action) {
     case 'DELETE':
       return state.filter((item) => item.id !== action.payload);
     case 'COMPLETE':
-      return state
+      return state.map((item) =>
+        item.id === action.payload ? { ...item, completed: !item.completed } : item
+      );
     default:
       return state
   }
@@ -29,13 +31,6 @@ export default function App() {
 
   function handleChange(event) {
     setInput(event.target.value);
-  }
-
-  function completeTodo(id) {
-    let newTodos = todos.map((item) =>
-      item.id === id ? { ...item, completed: !item.completed } : item
-    );
-    setTodos(newTodos);
   }
 
   return (
