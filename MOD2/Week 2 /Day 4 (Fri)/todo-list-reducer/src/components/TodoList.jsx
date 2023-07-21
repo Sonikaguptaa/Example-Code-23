@@ -1,6 +1,7 @@
 import Todo from "./Todo";
 
 function TodoList({ todos, listType, dispatch }) {
+  console.log(todos)
   let filteredTodos = todos.filter((item) => {
     if (listType === "all") {
       return true;

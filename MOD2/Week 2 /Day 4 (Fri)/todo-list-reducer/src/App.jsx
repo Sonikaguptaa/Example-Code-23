@@ -11,13 +11,15 @@ function reducer(state, action) {
         completed: false,
         id: crypto.randomUUID() 
       };
-      return [...state, item];
+      return { ...state, list: [...state.list, item] }
     case 'DELETE':
-      return state.filter((item) => item.id !== action.payload);
+      return { ...state, list: state.list.filter((item) => item.id !== action.payload) }
     case 'COMPLETE':
-      return state.map((item) =>
-        item.id === action.payload ? { ...item, completed: !item.completed } : item
-      );
+      return { ...state, list: state.list.map((item) =>
+        item.id === action.payload ? { ...item, completed: !item.completed } : item )
+      }
+    case 'TYPE':
+      return { ...state, listType: action.payload }
     default:
       return state
   }
@@ -25,9 +27,8 @@ function reducer(state, action) {
 
 export default function App() {
 
-  let [todos, dispatch] = useReducer(reducer, [])
+  let [todos, dispatch] = useReducer(reducer, { list: [], listType: 'all' })
   let [input, setInput] = useState("");
-  let [listType, setListType] = useState("all");
 
   function handleChange(event) {
     setInput(event.target.value);
@@ -35,11 +36,11 @@ export default function App() {
 
   return (
     <div>
-      <h1>Todos ({listType})</h1>
+      <h1>Todos ({todos.listType})</h1>
 
       <TodoList
-        todos={todos}
-        listType={listType}
+        todos={todos.list}
+        listType={todos.listType}
         dispatch={dispatch}
       />
 
@@ -52,9 +53,9 @@ export default function App() {
       <br />
       <br />
 
-      <button onClick={() => setListType("all")}>All</button>
-      <button onClick={() => setListType("complete")}>Completed</button>
-      <button onClick={() => setListType("incomplete")}>Incomplete</button>
+      <button onClick={() => dispatch({ type: 'TYPE', payload: "all" })}>All</button>
+      <button onClick={() => dispatch({ type: 'TYPE', payload: "complete" })}>Completed</button>
+      <button onClick={() => dispatch({ type: 'TYPE', payload: "incomplete" })}>Incomplete</button>
     </div>
   );
 }
