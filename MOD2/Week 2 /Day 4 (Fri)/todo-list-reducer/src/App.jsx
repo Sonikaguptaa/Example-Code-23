@@ -3,7 +3,10 @@ import "./App.css";
 import { useReducer, useState, useEffect } from "react";
 
 import TodoList from "./components/TodoList";
+
 import reducer from "./reducer"
+import { changeListType } from './reducer'
+
 
 export default function App() {
 
@@ -41,9 +44,9 @@ export default function App() {
       <br />
       <br />
 
-      <button onClick={() => dispatch({ type: 'TYPE', payload: "all" })}>All</button>
-      <button onClick={() => dispatch({ type: 'TYPE', payload: "complete" })}>Completed</button>
-      <button onClick={() => dispatch({ type: 'TYPE', payload: "incomplete" })}>Incomplete</button>
+      <button onClick={() => dispatch(changeListType('all'))}>All</button>
+      <button onClick={() => dispatch(changeListType('complete'))}>Completed</button>
+      <button onClick={() => dispatch(changeListType('incomplete'))}>Incomplete</button>
     </div>
   );
 }
