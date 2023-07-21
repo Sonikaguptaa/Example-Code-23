@@ -1,9 +1,8 @@
 import "./App.css";
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import TodoList from "./components/TodoList";
 
 function reducer(state, action) {
-  // action ->  { type: 'ADD', payload: input }
   switch(action.type) {
     case 'ADD': 
       let item = {
@@ -27,8 +26,16 @@ function reducer(state, action) {
 
 export default function App() {
 
-  let [todos, dispatch] = useReducer(reducer, { list: [], listType: 'all' })
+  let [todos, dispatch] = useReducer(reducer, null, () => {
+    const todoData = localStorage.getItem("todos")
+    return todoData ? JSON.parse(todoData) : { list: [], listType: 'all' }
+  })
+  
   let [input, setInput] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
 
   function handleChange(event) {
     setInput(event.target.value);
