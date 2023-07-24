@@ -12,23 +12,7 @@ export default function App() {
   let [input, setInput] = useState("");
 
   function handleChange(event) {
-    dispatch(addTodo('testing123'))
     setInput(event.target.value);
-  }
-
-  function deleteTodo(id) {
-    let newTodos = todos.filter((item) => item.id !== id);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-    setTodos(newTodos);
-  }
-
-  function completeTodo(id) {
-    let newTodos = todos.map((item) =>
-      item.id === id ? { ...item, completed: !item.completed } : item
-    );
-
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-    setTodos(newTodos);
   }
 
   return (
@@ -38,12 +22,15 @@ export default function App() {
       <TodoList
         todos={todos.list}
         listType={todos.listType}
-        completeTodo={completeTodo}
-        deleteTodo={deleteTodo}
+        completeTodo={null}
+        deleteTodo={null}
       />
 
       <input value={input} onChange={handleChange} />
-      <button onClick={() => dispatch(addTodo(input))}>Submit</button>
+      <button onClick={() => {
+        dispatch(addTodo(input))
+        setInput('')
+      }}>Submit</button>
 
       <br />
       <br />

@@ -10,16 +10,24 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            let item = {
+            let todo = {
                 text: action.payload, // input (from App)
                 completed: false,
                 id: crypto.randomUUID() 
             };
-            state.list.push(item)
+            state.list.push(todo)
+        },
+        deleteTodo: (state, action) => {
+            let index = state.list.findIndex((todo) => todo.id === action.payload)
+            state.list.splice(index, 1)
+        },
+        completeTodo: (state, action) => {
+            let index = state.list.findIndex((todo) => todo.id === action.payload)
+            state.list[index].completed = !state.list[index].completed
         }
     }
 })
 
 export default todoSlice.reducer
 
-export const { addTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, completeTodo } = todoSlice.actions
