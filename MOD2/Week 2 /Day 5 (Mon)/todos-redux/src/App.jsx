@@ -1,12 +1,13 @@
 import "./App.css";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  
-  let [todos, setTodos] = useState([]);
+
+  const todos = useSelector((state) => state.todos)
+
   let [input, setInput] = useState("");
-  let [listType, setListType] = useState("all");
 
   function addToList() {
     let item = {
@@ -42,11 +43,11 @@ export default function App() {
 
   return (
     <div>
-      <h1>Todos ({listType})</h1>
+      <h1>Todos ({todos.listType})</h1>
 
       <TodoList
-        todos={todos}
-        listType={listType}
+        todos={todos.list}
+        listType={todos.listType}
         completeTodo={completeTodo}
         deleteTodo={deleteTodo}
       />
