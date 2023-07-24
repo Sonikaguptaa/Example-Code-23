@@ -1,28 +1,18 @@
 import "./App.css";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from "./todoSlice";
 
 export default function App() {
 
   const todos = useSelector((state) => state.todos)
+  const dispatch = useDispatch()
 
   let [input, setInput] = useState("");
 
-  function addToList() {
-    let item = {
-      text: input,
-      completed: false,
-      id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
-    };
-
-    let newTodos = [...todos, item];
-
-    setTodos(newTodos);
-    setInput("");
-  }
-
   function handleChange(event) {
+    dispatch(addTodo('testing123'))
     setInput(event.target.value);
   }
 
@@ -53,7 +43,7 @@ export default function App() {
       />
 
       <input value={input} onChange={handleChange} />
-      <button onClick={addToList}>Submit</button>
+      <button onClick={() => dispatch(addTodo(input))}>Submit</button>
 
       <br />
       <br />

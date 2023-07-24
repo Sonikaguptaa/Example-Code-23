@@ -10,10 +10,12 @@ const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            // state.list
-            // state.listType
-            // action.payload
-            console.log(action)
+            let item = {
+                text: action.payload, // input (from App)
+                completed: false,
+                id: crypto.randomUUID() 
+            };
+            state.list.push(item)
         }
     }
 })
