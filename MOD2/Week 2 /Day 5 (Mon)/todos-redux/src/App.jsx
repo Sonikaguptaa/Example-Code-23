@@ -1,8 +1,9 @@
 import "./App.css";
 import { useState } from "react";
 import TodoList from "./components/TodoList";
+
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo } from "./todoSlice";
+import { addTodo, changeListType } from "./todoSlice";
 
 export default function App() {
 
@@ -22,8 +23,6 @@ export default function App() {
       <TodoList
         todos={todos.list}
         listType={todos.listType}
-        completeTodo={null}
-        deleteTodo={null}
       />
 
       <input value={input} onChange={handleChange} />
@@ -35,9 +34,9 @@ export default function App() {
       <br />
       <br />
 
-      <button onClick={() => setListType("all")}>All</button>
-      <button onClick={() => setListType("complete")}>Completed</button>
-      <button onClick={() => setListType("incomplete")}>Incomplete</button>
+      <button onClick={() => dispatch(changeListType("all"))}>All</button>
+      <button onClick={() => dispatch(changeListType("complete"))}>Completed</button>
+      <button onClick={() => dispatch(changeListType("incomplete"))}>Incomplete</button>
     </div>
   );
 }

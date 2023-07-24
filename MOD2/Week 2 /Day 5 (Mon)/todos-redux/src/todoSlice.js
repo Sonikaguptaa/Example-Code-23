@@ -24,10 +24,13 @@ const todoSlice = createSlice({
         completeTodo: (state, action) => {
             let index = state.list.findIndex((todo) => todo.id === action.payload)
             state.list[index].completed = !state.list[index].completed
+        },
+        changeListType: (state, action) => {
+            state.listType = action.payload
         }
     }
 })
 
 export default todoSlice.reducer
 
-export const { addTodo, deleteTodo, completeTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, completeTodo, changeListType } = todoSlice.actions
