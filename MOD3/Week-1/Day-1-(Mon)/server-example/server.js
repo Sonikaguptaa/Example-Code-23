@@ -39,6 +39,7 @@ const PORT = 8080
 // some data to work with
 const plants = ['Monstera Deliciosa', 'Corpse Flower', 'Elephant-Foot Yam', "Witches' Butter"]
 
+
 // Define "/greeting" route on the app
 app.get('/greeting', (req, res) => {
     res.send('<h1>Hello World!</h1>')
@@ -50,7 +51,7 @@ app.get('/home', (req, res) => {
     res.send('<h1>Home Page</h1>')
 })
 
-// Define "/plant" route
+// Define "/plant" route 
 app.get('/:indexOfThePlant', (req, res) => {
     if (plants[req.params.indexOfThePlant]) {
         res.send(plants[req.params.indexOfThePlant])
