@@ -36,9 +36,32 @@ const app = express()
 // define our port
 const PORT = 8080
 
-// Define "root" route on the app
-app.get('/', (req, res) => {
+// some data to work with
+const plants = ['Monstera Deliciosa', 'Corpse Flower', 'Elephant-Foot Yam', "Witches' Butter"]
+
+// Define "/greeting" route on the app
+app.get('/greeting', (req, res) => {
     res.send('<h1>Hello World!</h1>')
+})
+
+// Define "/home" route on the app
+app.get('/home', (req, res) => {
+    console.log('GET /home')
+    res.send('<h1>Home Page</h1>')
+})
+
+// Define "/plant" route
+app.get('/:indexOfThePlant', (req, res) => {
+    if (plants[req.params.indexOfThePlant]) {
+        res.send(plants[req.params.indexOfThePlant])
+    } else {
+        res.send('cannot find plant')
+    }
+})
+
+// Define root route on the app
+app.get('/', (req, res) => {
+    res.redirect('/home')
 })
 
 // Tell our app to listen for HTTP requests
