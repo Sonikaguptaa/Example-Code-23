@@ -28,3 +28,12 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log('Listening on port: ' + PORT)
 })
+
+/*
+
+    Create a route for using queries (req.query)
+    to filter and send back specific data
+
+    HINTS: use .filter, .includes
+
+*/
