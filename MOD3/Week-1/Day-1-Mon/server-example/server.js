@@ -51,6 +51,13 @@ app.get('/home', (req, res) => {
     res.send('<h1>Home Page</h1>')
 })
 
+// Define "/hello/:first/:last" route
+app.get('/hello/:firstName/:lastName', (req, res) => {
+    // console.log(req.params)
+    console.log(req.query)
+    res.send(`Hello ${req.params.firstName} ${req.params.lastName}!`)
+})
+
 // Define "/plant" route 
 app.get('/:indexOfThePlant', (req, res) => {
     if (plants[req.params.indexOfThePlant]) {
