@@ -4,23 +4,7 @@ const app = express()
 
 const PORT = 8080
 
-const fruits = [
-    {
-        name:'apple',
-        color: 'red',
-        readyToEat: true
-    },
-    {
-        name:'pear',
-        color: 'green',
-        readyToEat: false
-    },
-    {
-        name:'banana',
-        color: 'yellow',
-        readyToEat: true
-    }
-];
+const fruits = require('./models/fruits')
 
 // example of an "index" route
 app.get('/fruits', (req, res) => {
@@ -29,7 +13,12 @@ app.get('/fruits', (req, res) => {
 
 // example of a "show" route
 app.get('/fruits/:indexOfFruit', (req, res) => {
-    res.send(fruits[req.params.indexOfFruit] || '<h1>Not found :(</h1>')
+    let fruit = fruits[req.params.indexOfFruit]
+    if (fruit) {
+        res.send(fruit)
+    } else {
+        res.send('<h1>Not found :(</h1>')
+    }
 })
 
 app.get('/', (req, res) => {
