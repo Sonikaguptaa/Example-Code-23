@@ -30,3 +30,5 @@ const vegetables = [
         readyToEat: true
     }
 ]
+
+module.exports = vegetables
