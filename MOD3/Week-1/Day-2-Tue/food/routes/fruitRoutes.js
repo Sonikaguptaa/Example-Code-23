@@ -6,13 +6,13 @@ const fruits = require('../models/fruits')
 // Create our router
 const router = express.Router()
 
-// "index" route
-router.get('/fruits', (req, res) => {
+// "index" route      //   localhost:8080/fruits/
+router.get('/', (req, res) => {
     res.send(fruits)
 })
 
-// "show" route
-router.get('/fruits/:indexOfFruit', (req, res) => {
+// "show" route      //   localhost:8080/fruits/:indexOfFruit
+router.get('/:indexOfFruit', (req, res) => {
     res.send(fruits[req.params.indexOfFruit])
 })
 
