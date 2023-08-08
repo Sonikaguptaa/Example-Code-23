@@ -1,8 +1,5 @@
 const express = require('express')
 
-// Bring in our fruit data
-const fruits = require('../models/fruits')
-
 // Create our router
 const router = express.Router()
 
