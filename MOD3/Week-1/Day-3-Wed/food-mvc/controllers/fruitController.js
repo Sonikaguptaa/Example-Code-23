@@ -23,7 +23,7 @@ module.exports.new = (req, res) => {
 
 //  GET /fruits/:indexOfFruit/edit
 module.exports.edit = (req, res) => {
-    res.render('fruits/Edit', { fruit: fruits[req.params.indexOfFruit] })
+    res.render('fruits/Edit', { fruit: fruits[req.params.indexOfFruit], index: req.params.indexOfFruit })
 }
 
 // POST /fruits
@@ -45,5 +45,20 @@ module.exports.destroy = (req, res) => {
     // fruits.findIndex((fruit, index) => index == req.params.indexOfFruit)
     let index = Number(req.params.indexOfFruit)
     fruits.splice(index, 1)
+    res.redirect('/fruits')
+}
+
+// PUT /fruits/:indexOfFruit
+module.exports.update = (req, res) => {
+    console.log('PUT /fruits/:indexOfFruit')
+    
+    if (req.body.readyToEat === 'on') {
+        req.body.readyToEat = true
+    } else {
+        req.body.readyToEat = false
+    }
+    
+    fruits[req.params.indexOfFruit] = req.body
+
     res.redirect('/fruits')
 }

@@ -18,6 +18,7 @@ router.get('/new', fruitController.new)
 router.delete('/:indexOfFruit', fruitController.destroy)
 
 // "update" route
+router.put('/:indexOfFruit', fruitController.update)
 
 // "create" route
 router.post('/', fruitController.create)
