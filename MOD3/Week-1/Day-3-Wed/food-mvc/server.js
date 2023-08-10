@@ -10,11 +10,17 @@ const fruitRoutes = require('./routes/fruitRoutes')
 // Load the create engine function
 const jsxEngine = require('jsx-view-engine')
 
+// Load the method override function
+const methodOverride = require('method-override')
+
 // Configure the view engine and look for files ending in jsx
 app.set('view engine', 'jsx')
 
 // Create the engine and accept files ending in jsx
 app.engine('jsx', jsxEngine())
+
+// give our form more HTTP method to work with (like DELETE and PUT)
+app.use(methodOverride('_method'))
 
 // A middleware that formats the data into an object we can use on req.body
 app.use(express.urlencoded({ extended: true }))

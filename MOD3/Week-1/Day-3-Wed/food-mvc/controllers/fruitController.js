@@ -8,8 +8,9 @@ module.exports.index = (req, res) => {
 
 //  GET /fruits/:indexOfFruits
 module.exports.show = (req, res) => {
+    console.log('GET /fruits/:indexOfFruits')
     if (fruits[req.params.indexOfFruit]) {
-        res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit] })
+        res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit], index: req.params.indexOfFruit })
     } else {
         res.redirect('/fruits')
     }
@@ -30,5 +31,14 @@ module.exports.create = (req, res) => {
         req.body.readyToEat = false
     }
     fruits.push(req.body)
+    res.redirect('/fruits')
+}
+
+// DELETE /fruits/:indexOfFruit
+module.exports.destroy = (req, res) => {
+    console.log('DELETE /fruits/:indexOfFruit')
+    // fruits.findIndex((fruit, index) => index == req.params.indexOfFruit)
+    let index = Number(req.params.indexOfFruit)
+    fruits.splice(index, 1)
     res.redirect('/fruits')
 }
