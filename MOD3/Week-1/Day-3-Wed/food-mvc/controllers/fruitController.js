@@ -15,3 +15,10 @@ module.exports.show = (req, res) => {
 module.exports.new = (req, res) => {
     res.render('fruits/New')
 }
+
+// POST /fruits
+module.exports.create = (req, res) => {
+    console.log('POST /fruits')
+    console.log(req.body) // <-- should contain form data
+    res.send('POST /fruits')
+}

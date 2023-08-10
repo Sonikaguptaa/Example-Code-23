@@ -19,7 +19,7 @@ router.get('/new', fruitController.new)
 // "update" route
 
 // "create" route
-// here
+router.post('/', fruitController.create)
 
 // "edit" route
 
