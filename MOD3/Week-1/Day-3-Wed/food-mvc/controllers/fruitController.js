@@ -1,17 +1,17 @@
 // Bring in our fruit data
 const fruits = require('../models/fruits')
 
-// The callback function from the "index" route
-function index(req, res) {
+// GET /fruits
+module.exports.index = (req, res) => {
     res.render('fruits/Index', { fruits })
 }
 
-// The callback function from the "show" route
-function show(req, res) {
+//  GET /fruits/:indexOfFruits
+module.exports.show = (req, res) => {
     res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit] })
 }
 
-module.exports = {
-    index,
-    show
+//  GET /fruits/new
+module.exports.new = (req, res) => {
+    res.render('fruits/New')
 }

@@ -2,7 +2,7 @@ const express = require('express')
 
 const app = express()
 
-const PORT = 8080
+const PORT = 8081
 
 // Bring in our routes
 const fruitRoutes = require('./routes/fruitRoutes')
