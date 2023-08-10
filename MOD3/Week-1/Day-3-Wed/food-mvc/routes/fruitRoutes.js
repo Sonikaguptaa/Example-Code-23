@@ -23,6 +23,7 @@ router.delete('/:indexOfFruit', fruitController.destroy)
 router.post('/', fruitController.create)
 
 // "edit" route
+router.get('/:indexOfFruit/edit', fruitController.edit)
 
 // "show" route      //   localhost:8080/fruits/:indexOfFruit
 router.get('/:indexOfFruit', fruitController.show)

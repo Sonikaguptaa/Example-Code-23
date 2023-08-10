@@ -21,6 +21,11 @@ module.exports.new = (req, res) => {
     res.render('fruits/New')
 }
 
+//  GET /fruits/:indexOfFruit/edit
+module.exports.edit = (req, res) => {
+    res.render('fruits/Edit', { fruit: fruits[req.params.indexOfFruit] })
+}
+
 // POST /fruits
 module.exports.create = (req, res) => {
     console.log('POST /fruits')
