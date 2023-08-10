@@ -8,7 +8,11 @@ module.exports.index = (req, res) => {
 
 //  GET /fruits/:indexOfFruits
 module.exports.show = (req, res) => {
-    res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit] })
+    if (fruits[req.params.indexOfFruit]) {
+        res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit] })
+    } else {
+        res.redirect('/fruits')
+    }
 }
 
 //  GET /fruits/new
@@ -20,5 +24,11 @@ module.exports.new = (req, res) => {
 module.exports.create = (req, res) => {
     console.log('POST /fruits')
     console.log(req.body) // <-- should contain form data
-    res.send('POST /fruits')
+    if (req.body.readyToEat === 'on') {
+        req.body.readyToEat = true
+    } else {
+        req.body.readyToEat = false
+    }
+    fruits.push(req.body)
+    res.redirect('/fruits')
 }
