@@ -1,9 +1,14 @@
 // Bring in our fruit data
 const fruits = require('../models/fruits')
 
+// Load the Fruit model so we can interact with the collection
+const Fruit = require('../models/Fruit')
+
 // GET /fruits
-module.exports.index = (req, res) => {
-    res.render('fruits/Index', { fruits })
+module.exports.index = async (req, res) => {
+    const result = await Fruit.find()
+    console.log(result)
+    res.render('fruits/Index', { fruits: result })
 }
 
 //  GET /fruits/:indexOfFruits
