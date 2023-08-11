@@ -23,3 +23,4 @@ function Edit({ fruit, index }) {
 }
 
 export default Edit;
+
