@@ -1,5 +1,6 @@
 const express = require('express')
 
+// Make environment variables available to your application
 require('dotenv').config()
 
 const app = express()
