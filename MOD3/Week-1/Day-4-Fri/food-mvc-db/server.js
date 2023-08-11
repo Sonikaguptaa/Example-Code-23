@@ -1,5 +1,7 @@
 const express = require('express')
 
+require('dotenv').config()
+
 const app = express()
 
 const PORT = 8081
@@ -34,5 +36,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log('Listening on port: ' + PORT)
+    console.log('Listening on port: ' + PORT, process.env.MONGO_URL)
 })
