@@ -7,7 +7,7 @@ const Fruit = require('../models/Fruit')
 // GET /fruits
 module.exports.index = async (req, res) => {
     let fruits;
-    
+
     try {
         fruits = await Fruit.find()
         console.log(fruits)
@@ -19,11 +19,21 @@ module.exports.index = async (req, res) => {
     res.render('fruits/Index', { fruits })
 }
 
-//  GET /fruits/:indexOfFruits
-module.exports.show = (req, res) => {
-    console.log('GET /fruits/:indexOfFruits')
-    if (fruits[req.params.indexOfFruit]) {
-        res.render('fruits/Show', { fruit: fruits[req.params.indexOfFruit], index: req.params.indexOfFruit })
+//  GET /fruits/:id
+module.exports.show = async (req, res) => {
+    console.log('GET /fruits/:id')
+    let fruit;
+
+    try {
+        fruit = await Fruit.findById(req.params.id)
+        console.log(fruit)
+    } catch(err) {
+        console.log('Failed to find Fruit document with id ' + req.params.id, err)
+    }
+    
+
+    if (fruit) {
+        res.render('fruits/Show', { fruit })
     } else {
         res.redirect('/fruits')
     }

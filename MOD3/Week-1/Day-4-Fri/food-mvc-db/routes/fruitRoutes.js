@@ -27,6 +27,6 @@ router.post('/', fruitController.create)
 router.get('/:indexOfFruit/edit', fruitController.edit)
 
 // "show" route      //   localhost:8080/fruits/:indexOfFruit
-router.get('/:indexOfFruit', fruitController.show)
+router.get('/:id', fruitController.show)
 
 module.exports = router
