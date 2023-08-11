@@ -3,6 +3,12 @@ const express = require('express')
 // Make environment variables available to your application
 require('dotenv').config()
 
+// Load the configuration function
+const mongoConfig = require('./config')
+
+// Setup connection to MongoDB
+mongoConfig()
+
 const app = express()
 
 const PORT = 8081
