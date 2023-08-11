@@ -7,3 +7,5 @@ MONGO_URL = mongodb+srv://USERNAME:PASSWORD@cluster0.kh5wqiw.mongodb.net/NAME_OF
 Note you'll need to put your USERNAME, PASSWORD, and the NAME_OF_DATABASE.
 
 You can find this connection string on the MongoDB website by clicking Database (on the left in the navbar), then Connect, Drivers, and scroll to the bottom (it should be under Step 3).
+
+You can reset your password (if you forgot it) by going to Database Access (on the left in the navbar), Edit (far right), Edit Password, type in the new password, then Update User (at the bottom).
