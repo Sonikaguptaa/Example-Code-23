@@ -19,6 +19,6 @@ const fruitSchema = new Schema({
 })
 
 // 1st argument is the collection, 2nd is the Schema (blueprint) 
-const Fruit = mongoose.model('fruits')
+const Fruit = mongoose.model('fruits', fruitSchema)
 
 module.exports = Fruit
