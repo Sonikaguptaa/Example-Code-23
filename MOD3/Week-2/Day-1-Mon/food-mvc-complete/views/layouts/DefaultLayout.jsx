@@ -8,7 +8,7 @@ function DefaultLayout(props) {
                 <link rel="stylesheet" href="/styles.css" />
             </head>
             <body>
-                <nav>
+                <nav style={{ display: 'flex', flexDirection: 'row' }}>
                     <a href='/fruits'>Fruit</a>
                     <a href='/meats'>Meats</a>
                     <a href='/vegetables'>Vegetables</a>

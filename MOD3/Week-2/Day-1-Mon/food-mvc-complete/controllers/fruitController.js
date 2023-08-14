@@ -72,6 +72,8 @@ module.exports.create = async (req, res) => {
 
     try {
         let fruit = await Fruit.create(req.body)
+        // let fruit = new Fruit(req.body)
+        // fruit.save()
         console.log(fruit)
         console.log(fruit)
     } catch(err) {
