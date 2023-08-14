@@ -30,7 +30,6 @@ module.exports.show = async (req, res) => {
         console.log('Failed to find Fruit document with id ' + req.params.id, err)
     }
     
-
     if (fruit) {
         res.render('fruits/Show', { fruit })
     } else {
@@ -43,9 +42,21 @@ module.exports.new = (req, res) => {
     res.render('fruits/New')
 }
 
-//  GET /fruits/:indexOfFruit/edit
-module.exports.edit = (req, res) => {
-    res.render('fruits/Edit', { fruit: fruits[req.params.indexOfFruit], index: req.params.indexOfFruit })
+//  GET /fruits/:id/edit
+module.exports.edit = async (req, res) => {
+    console.log('GET /fruits/:id/edit')
+    let fruit;
+
+    try {
+        fruit = await Fruit.findById(req.params.id)
+        console.log(fruit)
+        res.render('fruits/Edit', { fruit })
+    } catch(err) {
+        console.log('Failed to find Fruit document with id ' + req.params.id, err)
+        res.redirect(`/fruits/${req.params.id}`)
+    }
+
+    
 }
 
 // POST /fruits
@@ -73,7 +84,7 @@ module.exports.create = async (req, res) => {
 // DELETE /fruits/:id
 module.exports.destroy = async (req, res) => {
     console.log('DELETE /fruits/:id')
-    
+
     try {
         await Fruit.findByIdAndDelete(req.params.id)
     } catch(err) {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Show({ fruit, index }) {
+export default function Show({ fruit }) {
     let { name, color, readyToEat, _id } = fruit
     return (
         <div>
@@ -13,7 +13,7 @@ export default function Show({ fruit, index }) {
                 <button>Remove</button>
             </form><br />
 
-            <form action={`/fruits/${index}/edit`}>
+            <form action={`/fruits/${_id}/edit`}>
                 <button>Edit</button>
             </form><br />
 

@@ -24,7 +24,7 @@ router.put('/:indexOfFruit', fruitController.update)
 router.post('/', fruitController.create)
 
 // "edit" route
-router.get('/:indexOfFruit/edit', fruitController.edit)
+router.get('/:id/edit', fruitController.edit)
 
 // "show" route      //   localhost:8080/fruits/:indexOfFruit
 router.get('/:id', fruitController.show)

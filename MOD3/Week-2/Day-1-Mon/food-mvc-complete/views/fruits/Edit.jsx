@@ -17,7 +17,8 @@ function Edit({ fruit }) {
                 <input type='checkbox' id='ready' name='readyToEat' checked={readyToEat}></input><br /><br /><br />
 
                 <button>Update</button>
-            </form>
+            </form><br />
+            <a href={`/fruits/${_id}`}>Back</a>
         </div>
     )
 }
