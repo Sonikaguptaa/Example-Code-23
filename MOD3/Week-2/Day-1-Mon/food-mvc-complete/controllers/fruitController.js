@@ -115,3 +115,28 @@ module.exports.update = async (req, res) => {
     }
 
 }
+
+// POST /fruits/seed
+module.exports.seed = async (req, res) => {
+
+    try {
+        await Fruit.deleteMany({}) // req.body {   }
+        await Fruit.create(fruits) // [ {}, {}, {} ]
+    } catch(err) {
+        console.log(err.message)
+    }
+
+    res.redirect('/fruits')
+}
+
+// DELETE /fruits/clear
+module.exports.clear = async (req, res) => {
+
+    try {
+        await Fruit.deleteMany({})
+    } catch(err) {
+        console.log(err.message)
+    }
+
+    res.redirect('/fruits')
+}

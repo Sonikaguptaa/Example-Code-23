@@ -14,6 +14,9 @@ router.get('/', fruitController.index)
 // "new" route
 router.get('/new', fruitController.new)
 
+// "clear" route
+router.delete('/clear', fruitController.clear)
+
 // "destroy" route
 router.delete('/:id', fruitController.destroy)
 
@@ -22,6 +25,9 @@ router.put('/:id', fruitController.update)
 
 // "create" route
 router.post('/', fruitController.create)
+
+// "seed" route
+router.post('/seed', fruitController.seed)
 
 // "edit" route
 router.get('/:id/edit', fruitController.edit)
