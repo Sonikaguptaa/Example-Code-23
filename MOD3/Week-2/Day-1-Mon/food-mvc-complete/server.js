@@ -34,6 +34,9 @@ app.use(methodOverride('_method'))
 // A middleware that formats the data into an object we can use on req.body
 app.use(express.urlencoded({ extended: true }))
 
+// Look for static files (like css) in the public folder
+app.use(express.static('public'))
+
 // Connect our fruit routes to our express app
 app.use('/fruits', fruitRoutes)
 

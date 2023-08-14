@@ -73,6 +73,7 @@ module.exports.create = async (req, res) => {
     try {
         let fruit = await Fruit.create(req.body)
         console.log(fruit)
+        console.log(fruit)
     } catch(err) {
         console.log('Failed to create a Fruit document: ', err)
     }
@@ -118,6 +119,7 @@ module.exports.update = async (req, res) => {
 
 // POST /fruits/seed
 module.exports.seed = async (req, res) => {
+    console.log('POST /fruits/seed')
 
     try {
         await Fruit.deleteMany({}) // req.body {   }
@@ -131,6 +133,7 @@ module.exports.seed = async (req, res) => {
 
 // DELETE /fruits/clear
 module.exports.clear = async (req, res) => {
+    console.log('DELETE /fruits/clear')
 
     try {
         await Fruit.deleteMany({})
