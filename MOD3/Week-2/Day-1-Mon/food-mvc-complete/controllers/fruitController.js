@@ -104,7 +104,9 @@ module.exports.update = async (req, res) => {
         req.body.readyToEat = false
     }
 
-    try {
+    // ?name=pineapple&color=yellow&readyToEat
+
+    try { // req.body -> { name: 'pineapple', color: 'yellow', readyToEat: 'on' }
         await Fruit.findByIdAndUpdate(req.params.id, req.body)
         res.redirect(`/fruits/${req.params.id}`)
     } catch(err) {

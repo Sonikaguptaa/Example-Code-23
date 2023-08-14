@@ -13,6 +13,14 @@ function Index(props) {
 
             <form action={`/fruits/new`}>
                 <button>Add Fruit</button>
+            </form><br /><br /><br /><br /><br />
+
+            <form action={`/fruits/seed`} method='POST'>
+                <button>SEED</button>
+            </form><br />
+
+            <form action={`/fruits/clear?_method=DELETE`} method='POST'>
+                <button>CLEAR</button>
             </form>
         </div>
     )
