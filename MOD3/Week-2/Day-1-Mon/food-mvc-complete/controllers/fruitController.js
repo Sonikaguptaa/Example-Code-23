@@ -94,17 +94,22 @@ module.exports.destroy = async (req, res) => {
     res.redirect('/fruits')
 }
 
-// PUT /fruits/:indexOfFruit
-module.exports.update = (req, res) => {
-    console.log('PUT /fruits/:indexOfFruit')
+// PUT /fruits/:id
+module.exports.update = async (req, res) => {
+    console.log('PUT /fruits/:id')
     
     if (req.body.readyToEat === 'on') {
         req.body.readyToEat = true
     } else {
         req.body.readyToEat = false
     }
-    
-    fruits[req.params.indexOfFruit] = req.body
 
-    res.redirect('/fruits')
+    try {
+        await Fruit.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect(`/fruits/${req.params.id}`)
+    } catch(err) {
+        console.log(err.message)
+        res.redirect(`/fruits/${req.params.id}/edit`)
+    }
+
 }
