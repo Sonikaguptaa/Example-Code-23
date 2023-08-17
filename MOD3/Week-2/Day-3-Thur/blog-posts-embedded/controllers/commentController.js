@@ -1,5 +1,18 @@
+const Posts = require('../models/postModel')
+
 module.exports.create = async (req, res) => {
     // create a comment by updating the comments property in post
+    try {
+        await Posts.findByIdAndUpdate(req.params.postId, {
+            // push the req.body to the comments property of the found post
+            $push: {
+                comments: req.body
+            }
+        })
+    } catch(err) {
+        console.log(err.message)
+    }
+
     res.redirect(`/posts/${req.params.postId}`)
 }
 
