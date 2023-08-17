@@ -21,6 +21,21 @@ module.exports.create = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     // delete a comment by updating the comments property in post
+    try {
+        // first use the comment id to delete the comment from the comments collection
+        await Comments.findByIdAndDelete(req.params.commentId)
+        // then use the post id to find the post
+        await Posts.findByIdAndUpdate(req.params.postId, {
+            // pull/remeove the reference id of the comment we deleted
+            $pull: {
+                comments: req.params.commentId
+            }
+        })
+    } catch(err) {
+        console.log(err.message)
+    }
+
+
     res.redirect(`/posts/${req.params.postId}`)
 }
 

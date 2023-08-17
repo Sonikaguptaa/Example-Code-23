@@ -45,6 +45,7 @@ module.exports.edit = async (req, res) => {
 
 module.exports.show = async (req, res) => {
     console.log('Show:')
+    // populate replaces the ids with actual documents/objects we can use
     const post = await Posts.findById(req.params.id).populate('comments')
     res.render('posts/Show', { post })
 }
