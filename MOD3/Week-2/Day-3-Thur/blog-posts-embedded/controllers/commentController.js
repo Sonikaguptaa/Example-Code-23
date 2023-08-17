@@ -59,7 +59,33 @@ module.exports.show = async (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
+
+
+    // OPTION 1: using only special Mongo operators and queries 
+
     // update a comment by updating an item in the comments property in post
+    try {
+        await Posts.updateOne({ _id: req.params.postId, 'comments._id': req.params.commentId }, {
+            // replace the content of a property in the subdocument
+            $set: {
+                // the specific comment at index (represented by $) --> comments[1].text = req.body.text
+                'comments.$.text': req.body.text
+            }
+        })
+    } catch(err) {
+        console.log(err.message)
+    }
+
+    // OPTION 2: using plain JavaScript together with Mongo queries
+
+    // try {
+    //     const post = await Posts.findById(req.params.postId)
+    //     const indexOfComment = post.comments.findIndex(comment => comment._id.toString() === req.params.commentId)
+    //     post.comments[indexOfComment].text = req.body.text
+    //     await post.save()
+    // } catch(err) {
+    //     console.log(err.message)
+    // }
 
     res.redirect(`/posts/${req.params.postId}`)
 }
