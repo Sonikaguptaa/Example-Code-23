@@ -1,4 +1,5 @@
 const Posts = require('../models/postModel')
+const Comments = require('../models/commentModel')
 const posts = require('../models/posts')
 
 module.exports.seed = async (req, res) => {
@@ -17,7 +18,18 @@ module.exports.new = async (req, res) => {
 }
 
 module.exports.delete = async (req, res) => {
-    await Posts.findByIdAndDelete(req.params.id)
+    try {
+        // find the post, storing it in a varaible, then deleting it
+        const post = await Posts.findByIdAndDelete(req.params.id)
+        // deleting all comments where the comment id
+        await Comments.deleteMany({ _id: {
+            // matches any comment ids in the given array
+            $in: post.comments   
+        }})
+    } catch(err) {
+        console.log(err.message)
+    }
+
     res.redirect('/posts')
 }
 
