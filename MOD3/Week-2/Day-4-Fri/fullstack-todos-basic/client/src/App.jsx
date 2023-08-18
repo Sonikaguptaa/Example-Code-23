@@ -31,15 +31,17 @@ export default function App() {
     }
 
     // OPTION 1: use fetch for "create" route
-    const response = await fetch('/todos', {
-      method: 'POST',
-      body: JSON.stringify(todo),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    // const response = await fetch('/todos', {
+    //   method: 'POST',
+    //   body: JSON.stringify(todo),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
 
-    const newTodo = await response.json()
+    // OPTION 2: use axios
+    const response = await axios.post('/todos', todo)
+    const newTodo = response.data
 
     let newTodos = [...todos, newTodo];
 
@@ -51,18 +53,39 @@ export default function App() {
     setInput(event.target.value);
   }
 
-  function deleteTodo(id) {
-    let newTodos = todos.filter((item) => item.id !== id);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+  async function deleteTodo(id) {
+
+    // OPTION 1: use fetch for "destroy" route
+    // await fetch(`/todos/${id}`, {
+    //   method: 'DELETE'
+    // })
+
+    // OPTION 2: use axios
+    await axios.delete(`/todos/${id}`)
+
+    let newTodos = todos.filter((todo) => todo._id !== id);
     setTodos(newTodos);
   }
 
-  function completeTodo(id) {
-    let newTodos = todos.map((item) =>
-      item.id === id ? { ...item, completed: !item.completed } : item
-    );
+  async function completeTodo(id) {
 
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+    let newTodos = [...todos]
+    let indexOfTodo = todos.findIndex((todo) => todo._id === id)
+    let todo = newTodos[indexOfTodo]
+    todo.completed = !todo.completed
+
+    // OPTION 1: use fetch for "update" route
+    // await fetch(`/todos/${id}`, {
+    //   method: 'PUT',
+    //   body: JSON.stringify(todo),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+
+    // OPTION 2: use axios
+    await axios.put(`/todos/${id}`, todo)
+
     setTodos(newTodos);
   }
 
