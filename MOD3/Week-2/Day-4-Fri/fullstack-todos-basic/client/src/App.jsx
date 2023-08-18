@@ -1,11 +1,20 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
 
 export default function App() {
   let [todos, setTodos] = useState([]);
   let [input, setInput] = useState("");
   let [listType, setListType] = useState("all");
+
+  useEffect(() => {
+    async function test() {
+      const response = await fetch('http://localhost:8080/test')
+      const data = await response.json()
+      console.log(data)
+    }
+    test()
+  }, [])
 
   function addToList() {
     let item = {
