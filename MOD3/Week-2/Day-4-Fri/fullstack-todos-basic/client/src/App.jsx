@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
+import axios from 'axios'
 
 export default function App() {
   let [todos, setTodos] = useState([]);
@@ -8,7 +9,7 @@ export default function App() {
   let [listType, setListType] = useState("all");
 
   useEffect(() => {
-    async function test() {
+    async function getTodos() {
 
       // OPTION 1: use fetch for "index" route
       // const response = await fetch('/todos')
@@ -16,19 +17,31 @@ export default function App() {
 
       // OPTION 2: use axios 
       const response = await axios.get('/todos')
-      setTodos(data)
+      console.log(response.data)
+
+      setTodos(response.data)
     }
-    test()
+    getTodos()
   }, [])
 
-  function addToList() {
-    let item = {
-      text: input,
-      completed: false,
-      id: crypto.randomUUID() // 2188jd-293483-dfllkaksldf
-    };
+  async function addToList() {
 
-    let newTodos = [...todos, item];
+    let todo = {
+      text: input
+    }
+
+    // OPTION 1: use fetch for "create" route
+    const response = await fetch('/todos', {
+      method: 'POST',
+      body: JSON.stringify(todo),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const newTodo = await response.json()
+
+    let newTodos = [...todos, newTodo];
 
     setTodos(newTodos);
     setInput("");
