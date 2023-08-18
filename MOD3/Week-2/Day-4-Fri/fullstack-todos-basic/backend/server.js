@@ -1,5 +1,11 @@
+require('dotenv').config()
+
 const express = require('express')
 const cors = require('cors')
+
+const mongoConfig = require('./config')
+
+mongoConfig()
 
 const app = express()
 
