@@ -9,9 +9,14 @@ export default function App() {
 
   useEffect(() => {
     async function test() {
-      const response = await fetch('http://localhost:8080/test')
-      const data = await response.json()
-      console.log(data)
+
+      // OPTION 1: use fetch for "index" route
+      // const response = await fetch('/todos')
+      // const data = await response.json()
+
+      // OPTION 2: use axios 
+      const response = await axios.get('/todos')
+      setTodos(data)
     }
     test()
   }, [])
