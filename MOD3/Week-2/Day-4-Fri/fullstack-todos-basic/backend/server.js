@@ -13,9 +13,12 @@ const app = express()
 
 app.use(cors())
 
+// takes over for express.urlencoded formatting incoming data to json
+app.use(express.json())
+
 const PORT = 8080
 
-// I D U C
+// I D U C  (New and Edit would be handled by React Router in the client React App, and Show we don't currently need)
 
 // "index" route 
 app.get('/todos', async (req, res) => {
