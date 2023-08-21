@@ -13,10 +13,11 @@ module.exports.create = async (req, res) => {
                 comments: comment._id
             }
         })
+        res.json(comment)
     } catch(err) {
         console.log(err)
+        res.json({ error: err.message })
     }
-    res.redirect(`/posts/${req.params.postId}`)
 }
 
 module.exports.delete = async (req, res) => {
@@ -31,28 +32,32 @@ module.exports.delete = async (req, res) => {
                 comments: req.params.commentId
             }
         })
+        res.json({ message: "successfully deleted" })
     } catch(err) {
         console.log(err.message)
+        res.json({ error: err.message })
     }
-
-
-    res.redirect(`/posts/${req.params.postId}`)
 }
 
 module.exports.index = async (req, res) => {
     // target the comments property 
-    const post = await Posts.findById(req.params.postId).populate('comments')
-    res.send(post.comments)
+    try {
+        const post = await Posts.findById(req.params.postId).populate('comments')
+        res.json(post.comments)
+    }  catch(err) {
+        console.log(err.message)
+        res.json({ error: err.message })
+    }
 }
 
 module.exports.show = async (req, res) => {
     // find the post and filter it's comments property array
     try {
         const comment = await Comments.findById(req.params.commentId)
-        res.render('comments/Edit', { postId: req.params.postId, comment })
+        res.json(comment)
     } catch(err) {
         console.log(err.message)
-        res.send(err.message)
+        res.json({ error: err.message })
     }
 }
 
@@ -60,8 +65,9 @@ module.exports.update = async (req, res) => {
     // update a comment by updating an item in the comments property in post
     try {
         await Comments.findByIdAndUpdate(req.params.commentId, req.body)
+        res.json({ message: 'successfully updated' })
     } catch(err) {
         console.log(err.message)
+        res.json({ error: err.message })
     }
-    res.redirect(`/posts/${req.params.postId}`)
 }
