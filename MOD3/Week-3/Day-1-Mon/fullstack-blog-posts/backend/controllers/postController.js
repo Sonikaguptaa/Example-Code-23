@@ -3,18 +3,25 @@ const Comments = require('../models/commentModel')
 const posts = require('../models/posts')
 
 module.exports.seed = async (req, res) => {
-    await Posts.deleteMany({})
-    await Posts.create(posts)
-    res.redirect('/posts')
+    try {
+        await Posts.deleteMany({})
+        await Comments.deleteMany({})
+        await Posts.create(posts)
+        res.json({ message: 'database seeded' })
+    } catch(err) {
+        console.log(err.message)
+        res.json({ error: err.message })
+    }
 }
 
 module.exports.index = async (req, res) => {
-    const posts = await Posts.find().sort({ createdAt: 1 })
-    res.render('posts/Index', { posts })
-}
-
-module.exports.new = async (req, res) => {
-    res.render('posts/New')
+    try {
+        const posts = await Posts.find().sort({ createdAt: 1 })
+        res.json(posts)
+    } catch(err) {
+        console.log(err.message)
+        res.json({ error: err.message })
+    }
 }
 
 module.exports.delete = async (req, res) => {
@@ -26,38 +33,42 @@ module.exports.delete = async (req, res) => {
             // matches any comment ids in the given array
             $in: post.comments   
         }})
+        res.json({ message: 'successfully deleted' })
     } catch(err) {
         console.log(err.message)
+        res.json({ error: err.message })
     }
-
-    res.redirect('/posts')
 }
 
 module.exports.update = async (req, res) => {
-    await Posts.findByIdAndUpdate(req.params.id, req.body)
-    res.redirect(`/posts/${req.params.id}`)
+    try {
+        await Posts.findByIdAndUpdate(req.params.id, req.body)
+        res.json({ message: 'successfully updated' })
+    } catch(err) {
+        console.log(err.message)
+        res.json({ error: err.message })
+    }
 }
 
 module.exports.create = async (req, res) => {
     console.log(req.body)
     try {
-        await Posts.create(req.body)
-        res.redirect('/posts')
+        const post = await Posts.create(req.body)
+        res.json(post)
     } catch(err) {
-        res.send(err.message)
+        console.log(err.message)
+        res.json({ error: err.message })
     }
-}
-
-module.exports.edit = async (req, res) => {
-    const post = await Posts.findById(req.params.id)
-    console.log(post)
-    console.log('edit route')
-    res.render('posts/Edit', { post })
 }
 
 module.exports.show = async (req, res) => {
     console.log('Show:')
-    // populate replaces the ids with actual documents/objects we can use
-    const post = await Posts.findById(req.params.id).populate('comments')
-    res.render('posts/Show', { post })
+    try {
+        // populate replaces the ids with actual documents/objects we can use
+        const post = await Posts.findById(req.params.id).populate('comments')
+        res.json(post)
+    } catch(err) {
+        console.log(err.message)
+        res.json({ error: err.message })
+    }
 }
