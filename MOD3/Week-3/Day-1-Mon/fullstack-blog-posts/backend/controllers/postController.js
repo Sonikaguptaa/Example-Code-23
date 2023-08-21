@@ -42,8 +42,8 @@ module.exports.delete = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     try {
-        await Posts.findByIdAndUpdate(req.params.id, req.body)
-        res.json({ message: 'successfully updated' })
+        const updatedPost = await Posts.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.json(updatedPost)
     } catch(err) {
         console.log(err.message)
         res.json({ error: err.message })
@@ -66,9 +66,10 @@ module.exports.show = async (req, res) => {
     try {
         // populate replaces the ids with actual documents/objects we can use
         const post = await Posts.findById(req.params.id).populate('comments')
-        res.json(post)
+        console.log(post)
+        res.status(200).json(post)
     } catch(err) {
         console.log(err.message)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }

@@ -1,23 +1,54 @@
-import React from 'react'
-import DefaultLayout from '../layouts/DefaultLayout';
+import axios from "axios"
+import { useRef, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
-function Edit(props) {
+
+function Edit() {
+
+    const [comment, setComment] = useState({})
+
+    const textRef = useRef()
+
+    const params = useParams()
+
+    const navigate = useNavigate()
+
+    async function getComment() {
+        const response = await axios.get(`/api/comments/${params.postId}/${params.commentId}`)
+        console.log(response)
+        setComment(response.data)
+    }
+
+    useState(() => {
+        getComment()
+    }, [])
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const comment = {
+            text: textRef.current.value,
+        }
+        await axios.put(`/api/comments/${params.postId}/${params.commentId}`, comment)
+        navigate(`/posts/${params.postId}`)
+    }
+
+    if (!comment.text)
+        return <div>Loading...</div>
+
     return ( 
-        <DefaultLayout>
+        <>
             <h1>Edit Comment</h1>
             <div className='buttons' style={{ flexDirection: 'column' }}>
-                <form action={`/comments/${props.postId}/${props.comment._id}?_method=PUT`} method="POST">
+                <form onSubmit={handleSubmit}>
 
                     <label htmlFor="clr">Body:</label><br />
-                    <textarea name="text" id="clr" cols="30" rows="10" defaultValue={props.comment.text} /><br /><br />
+                    <textarea name="text" id="clr" cols="30" rows="10" defaultValue={comment.text} ref={textRef} /><br /><br />
 
                     <button>Submit</button>
                 </form>
-                <form action={`/posts/${props.postId}`}>
-                    <button>Back</button>
-                </form>
+                    <button onClick={() => navigate(`/posts/${params.postId}`)}>Back</button>
             </div>
-        </DefaultLayout>
+        </>
     );
 }
 

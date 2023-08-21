@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 
 import axios from 'axios'
@@ -10,6 +10,9 @@ function Show() {
     const { id } = useParams()
     const navigate = useNavigate()
 
+    const detailsRef = useRef()
+    const textRef = useRef()
+
     async function getPost() {
         try {
             const response = await axios.get(`/api/posts/${id}`)
@@ -17,6 +20,7 @@ function Show() {
             setPost(response.data)
         } catch(err) {
             console.log(err.message)
+            navigate('/posts')
         }
     }
 
@@ -28,6 +32,28 @@ function Show() {
     useEffect(() => {
         getPost()
     }, [])
+
+    async function handleDeleteComment(commentId) {
+        await axios.delete(`/api/comments/${post._id}/${commentId}`)
+        let updatedPost = { ...post }
+        updatedPost.comments = updatedPost.comments.filter(c => c._id !== commentId)
+        setPost(updatedPost)
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const comment = {
+            text: textRef.current.value
+        }
+        const response = await axios.post(`/api/comments/${id}`, comment)
+        
+        const updatedPost = { ...post }
+        updatedPost.comments.push(response.data)
+        setPost(updatedPost)
+
+        textRef.current.value = ''
+        detailsRef.current.open = false
+    }
 
     if (!post.subject) {
         return <div>Loading...</div>
@@ -44,22 +70,22 @@ function Show() {
                         post?.comments?.length ?
                         <>
                             <div>Comments:</div>
-                            <p>{post.comments.map((comment, i) => 
+                            <div>{post.comments.map((comment, i) => 
                                 <div key={i} className="comm">
                                     <div>{comment.user}</div>
                                     <div>{comment.text}</div>
-                                    <form action={`/comments/${post._id}/${comment._id}?_method=DELETE`} method="POST"><input type="submit" value="X"/></form>
+                                    <input onClick={() => handleDeleteComment(comment._id)} type="submit" value="X"/>
                                     <a href={`/comments/${post._id}/${comment._id}`}>+</a>
                                 </div>
-                            )}</p>
+                            )}</div>
                             <br/><br/>
                         </>
                         : ''
                     }
-                    <details>
+                    <details ref={detailsRef}>
                         <summary style={{ opacity: '.5' }}>Leave a comment:</summary>
-                        <form action={`/comments/${post._id}`} method="POST">
-                            <textarea name="text" id="lc" cols="1" rows="1" />
+                        <form onSubmit={handleSubmit}>
+                            <textarea name="text" id="lc" cols="1" rows="1" ref={textRef} />
                             <button>Comment</button>
                         </form>
                     </details>
