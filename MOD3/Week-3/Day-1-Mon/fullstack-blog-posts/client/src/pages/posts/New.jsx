@@ -1,9 +1,6 @@
-import React from 'react'
-import DefaultLayout from '../layouts/DefaultLayout';
-
 function New() {
     return ( 
-        <DefaultLayout>
+        <>
             <h1>New Post</h1>
             <form action="/posts" method="POST">
                 <label htmlFor="nme">Subject:</label><br />
@@ -14,7 +11,7 @@ function New() {
 
                 <button>Submit</button>
             </form>
-        </DefaultLayout>
+        </>
     );
 }
 

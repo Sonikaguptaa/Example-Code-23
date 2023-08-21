@@ -23,8 +23,8 @@ const commentRoutes = require('./routes/commentRoutes')
 app.use(express.json())
 app.use(cors())
 
-app.use('/posts', postRoutes)
-app.use('/comments', commentRoutes)
+app.use('/api/posts', postRoutes)
+app.use('/api/comments', commentRoutes)
 
 // Listen to the given port
 app.listen(PORT, () => {

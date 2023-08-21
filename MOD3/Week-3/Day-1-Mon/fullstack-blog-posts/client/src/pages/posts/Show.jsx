@@ -1,10 +1,7 @@
-import React from 'react'
-import DefaultLayout from '../layouts/DefaultLayout'
-
 function Show(props) {
 
     return (
-            <DefaultLayout>
+            <>
                 <div className="a-post">
                     <h2>{props.post.subject}</h2>
                     <h5 style={{ opacity: '.3'}}>Posted by {props.post.user} on {props.post.createdAt.toLocaleDateString()} at {props.post.createdAt.toLocaleTimeString()}</h5>
@@ -46,7 +43,7 @@ function Show(props) {
                         </form>
                     </div>
                 </div>
-            </DefaultLayout>
+            </>
     )
 }
 
