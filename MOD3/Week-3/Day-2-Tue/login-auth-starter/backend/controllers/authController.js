@@ -12,7 +12,6 @@ async function register(req, res) {
         const foundUser = await User.findOne({ username: req.body.username })
         
         if (foundUser) {
-            // throw new Error('User already exists')
             return res.status(400).json({ error: 'User already exists' })
         }
 
@@ -35,7 +34,7 @@ async function register(req, res) {
 
         console.log(err.message)
         res.status(400).json({ error: err.message })
-        
+
     }
 }
 
