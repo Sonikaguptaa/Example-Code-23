@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import icon from '../assets/react.svg'
 
-function Navbar({ username, setUser }) {
+function Navbar() {
   
   const logout = () => {
   };
@@ -13,9 +13,9 @@ function Navbar({ username, setUser }) {
           <img src={icon} alt="React Icon" id="icon" />
         </Link>
       </li>
-      {username ? 
+      {null ? 
         <>
-          <li style={{ color: "black" }}>Welcome {username}!</li>
+          <li style={{ color: "black" }}>Welcome {null}!</li>
           <li>
             <Link to="/profile">Profile</Link>
           </li>

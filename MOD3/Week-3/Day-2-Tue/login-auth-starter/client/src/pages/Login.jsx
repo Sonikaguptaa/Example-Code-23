@@ -9,7 +9,7 @@ let emptyForm = {
     email: ''
 }
 
-function Login({ setUser }) {
+function Login() {
 
     const navigate = useNavigate()
 

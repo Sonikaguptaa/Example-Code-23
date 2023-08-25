@@ -22,12 +22,12 @@ function App() {
 
     return ( 
         <div className="app">
-            <Navbar username={null} setUser={setUser} />
+            <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile username={null} email={null} />} />
-                <Route path="/login" element={<Login setUser={setUser} />} />
-                <Route path="/register" element={<Register setUser={setUser} />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </div>
      );

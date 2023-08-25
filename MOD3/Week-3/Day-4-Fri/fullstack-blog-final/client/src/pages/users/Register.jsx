@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ let emptyForm = {
     email: ''
 }
 
-function Register() {
+function Register({ setUser }) {
 
     const navigate = useNavigate()
 
@@ -20,6 +20,35 @@ function Register() {
     }
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const authResponse = await axios.post('/auth/register', form)
+            const token = authResponse.data.token
+    
+            if (!token) {
+                setForm(emptyForm)
+                return
+            }
+    
+            localStorage.setItem("token", token)
+    
+            const userResponse = await axios.get('/api/users', {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
+    
+            setUser(userResponse.data)
+    
+            navigate('/posts')
+
+        } catch(err) {
+
+            console.log(err)
+            alert(err.response.data.error)
+            
+        }
     }
 
     return ( 

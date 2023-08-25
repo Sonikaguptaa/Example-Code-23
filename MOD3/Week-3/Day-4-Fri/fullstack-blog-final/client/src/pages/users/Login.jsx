@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../../api'
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ let emptyForm = {
     email: ''
 }
 
-function Register() {
+function Login({ setUser }) {
 
     const navigate = useNavigate()
 
@@ -20,11 +20,40 @@ function Register() {
     }
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const authResponse = await axios.post('/auth/login', form)
+            const token = authResponse.data.token
+    
+            if (!token) {
+                setForm(emptyForm)
+                return
+            }
+    
+            localStorage.setItem("token", token)
+    
+            const userResponse = await axios.get('/api/users', {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
+    
+            setUser(userResponse.data)
+    
+            navigate('/posts')
+
+        } catch(err) {
+
+            console.log(err)
+            alert(err.response.data.error)
+
+        }
     }
 
     return ( 
         <>
-            <h1>Register</h1>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>
                 <br />
@@ -34,16 +63,6 @@ function Register() {
                     name="username"
                     onChange={handleChange}
                     value={form.username}
-                />
-                <br /><br />
-                <label htmlFor="email">Email:</label>
-                <br />
-                <input 
-                    type="email" 
-                    id="email"
-                    name="email"
-                    onChange={handleChange}
-                    value={form.email}
                 />
                 <br /><br />
                 <label htmlFor="password">Password:</label>
@@ -62,4 +81,4 @@ function Register() {
      );
 }
 
-export default Register;
+export default Login;
