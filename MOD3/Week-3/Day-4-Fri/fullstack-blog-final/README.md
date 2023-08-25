@@ -3,48 +3,48 @@ HOW TO: Deploy your fullstack application on render.com
 
 Backend (render):
 
-1. Dashboard
-2. New 
-3. Web Service
-4. Connect GitHub
-5. Only select repository and find your project repository
-6. Install
-7. Connect
+1. **Dashboard**
+2. **New** 
+3. **Web Service**
+4. **Connect GitHub**
+5. **Only select repository** and find your project repository
+6. **Install**
+7. **Connect**
 8. Give it any name (ex: blog-backend)
-9. Type backend for root directory (or whatever you called the folder with backend code)
-10. Type npm install for build command
-11. Type node server for start command
-12. Click Advanced 
-13. Click Add Environment Variable (add one for each variable in your .env file in the backend folder)
-14. Create Web Service
+9. Type **backend** for root directory (or whatever you called the folder with backend code)
+10. Type **npm install** for build command
+11. Type **node server** for start command
+12. Click **Advanced** 
+13. Click **Add Environment Variable** (add one for each variable in your .env file in the backend folder)
+14. **Create Web Service**
 
-It should show a green Live next to the date and time. Copy the on onrender.com link above.
+It should show a green Live next to the date and time. Copy the on onrender link that should appear above.
 
 
 Frontend (render):
 
-1. New
-2. Static Site
-3. Click Connect next to the repository (which should already be configured)
+1. **New**
+2. **Static Site**
+3. **Click Connect** next to the repository (which should already be configured)
 4. Give it any name (ex: blog-frontend)
-5. Type client for root directory (or whatever you called the folder with frontend code)
-6. Type npm run build for build command
-7. Type dist for publish directory
-8. Click Advanced
-9. Click Add Environment Variable (add VITE_API as a key and the render.com link that was generated for the backend as its value)
-10. Click Create Static Site
-11. Click Redirects/Rewrites
-12. Add Rule
-13. Under Source type /* and under Destination type /index.html and under Action select Rewrite
+5. Type **client** for root directory (or whatever you called the folder with frontend code)
+6. Type **npm run build** for build command
+7. Type **dist** for publish directory
+8. Click **Advanced**
+9. Click **Add Environment Variable** (add VITE_API as a key and the onrender link that was generated for the backend as its value)
+10. Click **Create Static Site**
+11. Click **Redirects/Rewrites**
+12. **Add Rule**
+13. Under Source type **/*** and under Destination type **/index.html** and under Action select **Rewrite**
 14. Save Changes
 
-It should show a green Live next to the date and time. Copy the on onrender.com link above.
+It should show a green Live next to the date and time. Copy the onrender link that should appear above.
 
 
 
 
-Source/reason for the redirect/rewrite:
-https://render.com/docs/deploy-create-react-app#using-client-side-routing
+*Source/reason for the redirect/rewrite:
+https://render.com/docs/deploy-create-react-app#using-client-side-routing*
 
 
 
