@@ -18,7 +18,7 @@ Backend (render):
 13. Click **Add Environment Variable** (add one for each variable in your .env file in the backend folder)
 14. **Create Web Service**
 
-It should show a green Live next to the date and time. Copy the on onrender link that should appear above.
+It should show a green Live next to the date and time when it finishes. Copy the on onrender link that appears above.
 
 
 Frontend (render):
@@ -38,7 +38,7 @@ Frontend (render):
 13. Under Source type **/*** and under Destination type **/index.html** and under Action select **Rewrite**
 14. Save Changes
 
-It should show a green Live next to the date and time. Copy the onrender link that should appear above.
+It should show a green Live next to the date and time when it finishes. Copy the onrender link that appears above.
 
 
 
@@ -99,7 +99,7 @@ Or you can create a custom axios with the base url built in:
 
 3.
 
-Remember to add your VITE_API environment variable to the service you’re using to the deploy the frontend whether that be render, netlify, or vercel. All of them should have a section for setting up environment variables.   
+Remember to add your VITE_API environment variable to the service you’re using to deploy the frontend whether that be render, netlify, or vercel. All of them should have a section for setting up environment variables.   
 
 	VITE_APP = https://backend-onrender.com/
 
