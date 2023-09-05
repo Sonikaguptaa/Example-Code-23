@@ -68,7 +68,7 @@ Instead, you’ll use the server you deployed on render:
 
 You’ll probably want to put your new backend server address in an environment variable in the frontend:
 
-	VITE_APP = https://backend-onrender.com/
+	VITE_API = https://backend-onrender.com/
 
 And then use it to conditionally prepend a base url to your requests if you’re in production:
 
@@ -101,7 +101,7 @@ Or you can create a custom axios with the base url built in:
 
 Remember to add your VITE_API environment variable to the service you’re using to deploy the frontend whether that be render, netlify, or vercel. All of them should have a section for setting up environment variables.   
 
-	VITE_APP = https://backend-onrender.com/
+	VITE_API = https://backend-onrender.com/
 
 The deployed frontend service will use the deployed backend API address you created wherever the environment variable is used in your code.
 
